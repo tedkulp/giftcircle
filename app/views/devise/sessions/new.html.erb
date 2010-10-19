@@ -1,0 +1,49 @@
+  <h1 style="text-align: center;">Gift Circle</h1>
+  <div class="block" id="block-login">
+    <h2>Sign In</h2>
+    <div class="content login">
+      <div class="flash">
+        <%= flash.each do |type, message| -%>
+        <div class="message <%= type %>">
+          <p><%= message %></p>
+        </div>
+        <% end -%>
+      </div>
+      <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form login'}) do |f| -%>
+        <div class="group wat-cf">
+          <div class="left">
+            <label class="label right">Email</label>
+          </div>
+          <div class="right">
+            <%= f.text_field :email, :class => 'text_field' %>
+          </div>              
+        </div>
+        <div class="group wat-cf">
+          <div class="left">
+            <label class="label right">Password</label>
+          </div>
+          <div class="right">
+            <%= f.password_field :password, :class => 'text_field' %>
+          </div>
+        </div>
+        <% if devise_mapping.rememberable? -%>
+        <div class="group wat-cf">
+          <div class="left">
+            <label class="label right">Remember Me:</label>
+          </div>
+          <div class="right">
+            <%= f.check_box :remember_me %>
+          </div>
+        </div>
+        <% end -%>
+        <div class="group navform wat-cf">
+          <div class="right">
+            <button class="button" type="submit">
+              <%= image_tag("web-app-theme/icons/key.png", :alt => "#{t("web-app-theme.signin", :default => "Sign In")}") %> <%= t("web-app-theme.signin", :default => "Sign In") %>
+            </button>
+          </div>
+        </div>
+      <% end -%>
+      <%= render :partial => "devise/shared/links" %>
+    </div>
+  </div>

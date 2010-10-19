@@ -1,0 +1,57 @@
+<div class="block">
+  <div class="content">
+    <h2 class="title">Edit <%= resource_name.to_s.humanize %></h2>
+    <div class="inner">
+      <div>
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form' }) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div class="group">
+            <%= f.label :email, :class => 'label' %>
+            <%= f.text_field :email, :class => 'text_field' %>
+          </div>
+
+          <div class="group">
+            <%= f.label :password, :class => 'label' %>
+            <%= f.password_field :password, :class => 'text_field' %>
+            <span class="description">(leave blank if you don't want to change it)</span>
+          </div>
+
+          <div class="group">
+            <%= f.label :password_confirmation, :class => 'label' %>
+            <%= f.password_field :password_confirmation, :class => 'text_field' %>
+          </div>
+
+          <div class="group">
+            <%= f.label :current_password, :class => 'label' %>
+            <%= f.password_field :current_password, :class => 'text_field' %>
+            <span class="description">(we need your current password to confirm your changes)</span>
+          </div>
+
+          <button class="button" type="submit">
+            <%= image_tag("web-app-theme/icons/tick.png", :alt => "#{t("web-app-theme.update", :default => "Update")}") %> <%= t("web-app-theme.update", :default => "Update") %>
+          </button>
+        <% end %>
+      </div>
+      <div class="actions-bar wat-cf" style="clear: both;">
+        <h3 class="title">Cancel my account</h3>
+        <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
+        <%= link_to "Back", :back %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :sidebar do %>
+  <div class="block notice"> 
+    <h4>What is this?</h4>
+    <p>
+      Use this page to change your password or change your email to something else.  Be aware that
+      if you change your email address, you can only use that email to log in to the system.
+    </p>
+    <p>
+      If you're not happy with the system or if you don&apos;t use it anymore, you can click the
+      'Cancel my account' link. There is no undo, so only do this if you really mean it!
+    </p>
+  </div>
+<% end %>
