@@ -22,6 +22,12 @@
           </div>
 
           <div class="group">
+            <%= f.label :current_password, :class => 'label' %>
+            <%= f.password_field :current_password, :class => 'text_field' %>
+            <span class="description">(we need your current password to confirm your changes)</span>
+          </div>
+
+          <div class="group">
             <%= f.label :password, :class => 'label' %>
             <%= f.password_field :password, :class => 'text_field' %>
             <span class="description">(leave blank if you don't want to change it)</span>
@@ -30,12 +36,6 @@
           <div class="group">
             <%= f.label :password_confirmation, :class => 'label' %>
             <%= f.password_field :password_confirmation, :class => 'text_field' %>
-          </div>
-
-          <div class="group">
-            <%= f.label :current_password, :class => 'label' %>
-            <%= f.password_field :current_password, :class => 'text_field' %>
-            <span class="description">(we need your current password to confirm your changes)</span>
           </div>
 
           <button class="button" type="submit">

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   layout :layout_by_resource
 
   def layout_by_resource
-    if devise_controller? and ['edit'].exclude? action_name
+    if devise_controller? and ['edit', 'update'].exclude? action_name
       "login"
     else
       "application"
