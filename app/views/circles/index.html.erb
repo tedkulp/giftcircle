@@ -24,7 +24,7 @@
             <%= current_user.id == circle.admin_user_id ? link_to(circle.name, circle_path(circle)) : circle.name %>
           </td>
           <td>
-            <%= circle.admin_user.email %>
+            <%= circle.admin_user.full_name %>
           </td>
           <td class="last">
             <%= link_to "#{t("web-app-theme.show", :default => "Show")}", circle_path(circle) %><% if current_user.id == circle.admin_user_id -%> |
