@@ -71,6 +71,7 @@ GEM
     warden (0.10.7)
       rack (>= 1.0.0)
     web-app-theme (0.6.2)
+    will_paginate (2.3.15)
 
 PLATFORMS
   ruby
@@ -80,3 +81,4 @@ DEPENDENCIES
   mysql2
   rails (= 3.0.0)
   web-app-theme (>= 0.6.2)
+  will_paginate
