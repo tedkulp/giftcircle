@@ -35,5 +35,5 @@ production:
   database: giftcircle_production
   pool: 5
   username: root
-  password:
+  password: I0f1S2h0
   socket: /tmp/mysql.sock
