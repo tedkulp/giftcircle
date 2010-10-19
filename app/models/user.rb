@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :gifts, :dependent => :destroy
   accepts_nested_attributes_for :gifts, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
   
+  has_many :bought_gifts, :class_name => "Gift", :foreign_key => "bought_by_id"
+  
   #Hack for now
   after_create :add_user_to_default_list
   

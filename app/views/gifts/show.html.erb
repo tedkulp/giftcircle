@@ -10,11 +10,6 @@
   </div>          
   <div class="content">
     <div class="inner">
-      
-        <p>
-          <b><%= t("activerecord.attributes.gift.user_id", :default => t("activerecord.labels.user_id", :default => "User")) %>:</b>
-          <%= @gift.user_id %>
-        </p>
 
         <p>
           <b><%= t("activerecord.attributes.gift.name", :default => t("activerecord.labels.name", :default => "Name")) %>:</b>
@@ -23,7 +18,7 @@
 
         <p>
           <b><%= t("activerecord.attributes.gift.description", :default => t("activerecord.labels.description", :default => "Description")) %>:</b>
-          <%= @gift.description %>
+          <%= @gift.description.gsub(/\n/, '<br />').html_safe %>
         </p>
 
         <p>

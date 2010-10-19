@@ -8,6 +8,12 @@ Giftcircle::Application.routes.draw do
     resources :gifts
   end
 
+	match 'users/:user_id/gifts/:id/buy' => 'gifts#buy', :as => :buy_user_gift
+	match 'users/:user_id/gifts/:id/unbuy' => 'gifts#unbuy', :as => :unbuy_user_gift
+	
+	match 'gifts/:id/buy' => 'gifts#buy', :as => :buy_gift
+	match 'gifts/:id/unbuy' => 'gifts#unbuy', :as => :unbuy_gift
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

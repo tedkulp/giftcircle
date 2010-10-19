@@ -88,4 +88,78 @@ class GiftsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  # GET /gifts/1/buy
+	def buy
+	  good = false
+	  gift = nil
+	  begin
+      gift = Gift.find(params[:id])
+    end
+    if !gift.nil? and gift.user_id != current_user.id
+      if !gift.bought_by_id
+        gift.bought_by_id = current_user.id
+        gift.bought_date = DateTime.now
+        good = true
+      end
+    end
+    
+    user = nil
+    if !gift.nil?
+      user = gift.user
+    elsif params[:user_id]
+      begin
+        user = User.find(params[:user_id])
+      end
+    end
+    
+    respond_to do |format|
+      if good and gift.save
+        format.html { redirect_to(user_gifts_path(user), :notice => 'Gift was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { redirect_to(user_gifts_path(user), :error => 'There was an eeror marking this gift bought.') }
+        format.xml  { render :xml => gift.errors, :status => :unprocessable_entity }
+      end
+    end
+	end
+
+  # GET /gifts/1/unbuy
+	def unbuy
+	  good = false
+	  gift = nil
+	  begin
+      gift = Gift.find(params[:id])
+    end
+    if !gift.nil? and gift.user_id != current_user.id
+      logger.info gift.bought_by_id.inspect
+      logger.info current_user.inspect
+      if gift.bought_by_id == current_user.id
+        logger.info 'there'
+        gift.bought_by_id = nil
+        gift.bought_date = nil
+        good = true
+      end
+    end
+    
+    user = nil
+    if !gift.nil?
+      user = gift.user
+    elsif params[:user_id]
+      begin
+        user = User.find(params[:user_id])
+      end
+    end
+
+    respond_to do |format|
+      if good and gift.save
+        format.html { redirect_to(user_gifts_path(user), :notice => 'Gift was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { redirect_to(user_gifts_path(user), :error => 'There was an eeror marking this gift bought.') }
+        format.xml  { render :xml => gift.errors, :status => :unprocessable_entity }
+      end
+    end
+	end
+
 end

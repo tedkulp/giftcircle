@@ -16,6 +16,7 @@
           <th><%= t("activerecord.attributes.gift.name", :default => t("activerecord.labels.name", :default => "Name")) %></th>
           <th><%= t("web-app-theme.url", :default => "URL")  %></th>
           <th><%= t("web-app-theme.price", :default => "Price")  %></th>
+          <th style="width: 10em;">&nbsp;</th>
           <th class="last">&nbsp;</th>
         </tr>
         <% @gifts.each do |gift| -%>
@@ -33,20 +34,36 @@
           <td>
             <%= !gift.price.blank? ? number_to_currency(gift.price) : '&nbsp;'.html_safe %>
           </td>
+          <td>
+            <% if gift.user_id != current_user.id -%>
+              <% unless gift.bought_by.nil? -%>
+                Bought by: <%= gift.bought_by.full_name -%>
+              <% else -%>
+                &nbsp;
+              <% end -%>
+            <% else -%>
+              &nbsp;
+            <% end -%>
+          </td>
           <td class="last">
-            <%= link_to "#{t("web-app-theme.show", :default => "Show")}", user_gift_path(gift.user, gift) %><% if current_user.id == gift.user_id -%> |
-            <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_user_gift_path(gift.user, gift) %> |
-            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", user_gift_path(gift.user, gift), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+            <%= link_to "#{t("web-app-theme.show", :default => "Show")}", user_gift_path(gift.user, gift) %>
+            <% if current_user.id == gift.user_id -%> |
+              <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_user_gift_path(gift.user, gift) %> |
+              <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", user_gift_path(gift.user, gift), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+            <% elsif gift.bought_by.nil? -%> |
+              <%= link_to "#{t("web-app-theme.mark_bought", :default => "Mark Bought")}", buy_user_gift_path(gift.user, gift) %>
+            <% elsif gift.bought_by_id == current_user.id -%> |
+              <%= link_to "#{t("web-app-theme.mark_unbought", :default => "Mark Not Bought")}", unbuy_user_gift_path(gift.user, gift) %>
             <% end -%>
           </td>
         </tr>
         <% unless gift.description.blank? -%>
         <tr class="<%= oddeven -%>">
           <td>&nbsp;</td>
-          <td colspan="2">
+          <td colspan="4">
             <%= h gift.description.gsub(/\n/, '<br />').html_safe -%>
           </td>
-          <td class="last">&nbsp;</td>
+          <td class="last">&nbsp;</td> 	
         </tr>
         <% end -%>
         <% end -%>
