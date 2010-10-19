@@ -1,29 +1,49 @@
-<h1>Listing gifts</h1>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", user_gifts_path  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_user_gift_path %></li>
+    </ul>
+  </div>          
+  <div class="content">          
+    <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Gifts</h2>
+    <div class="inner">
+      <table class="table">
+        <tr>             
+          <th class="first">ID</th>
+          <th><%= t("activerecord.attributes.gift.name", :default => t("activerecord.labels.name", :default => "Name")) %></th>
+          <th><%= t("web-app-theme.url", :default => "URL")  %></th>
+          <th class="last">&nbsp;</th>
+        </tr>
+        <% @gifts.each do |gift| -%>
+        <tr class="<%= cycle("odd", "even") %>">
+          <td>
+            <%= gift.id %>
+          </td>
+          <td>
+            <%= current_user.id == gift.user_id ? link_to(gift.name, edit_user_gift_path(gift.user, gift)) : gift.name %>
+          </td>
+          <td>
+            <%= gift.url %>
+          </td>
+          <td class="last">
+            <%= link_to "#{t("web-app-theme.show", :default => "Show")}", user_gift_path(gift.user, gift) %><% if current_user.id == gift.user_id -%> |
+            <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_user_gift_path(gift.user, gift) %> |
+            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", user_gift_path(gift.user, gift), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+            <% end -%>
+          </td>
+        </tr>
+        <% end -%>
+      </table>
+      <div class="actions-bar wat-cf">
+        <div class="actions">
+        </div>
+        
+        <%= will_paginate @gifts  %>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Url</th>
-    <th>Price</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @gifts.each do |gift| %>
-  <tr>
-    <td><%= gift.name %></td>
-    <td><%= gift.description %></td>
-    <td><%= gift.url %></td>
-    <td><%= gift.price %></td>
-    <td><%= link_to 'Show', gift %></td>
-    <td><%= link_to 'Edit', edit_gift_path(gift) %></td>
-    <td><%= link_to 'Destroy', gift, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Gift', new_gift_path %>
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

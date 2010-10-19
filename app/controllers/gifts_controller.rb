@@ -1,8 +1,11 @@
 class GiftsController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
   # GET /gifts
   # GET /gifts.xml
   def index
-    @gifts = Gift.all
+    @gifts = Gift.paginate :page => params[:page], :order => 'created_at DESC'
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,10 +44,11 @@ class GiftsController < ApplicationController
   # POST /gifts.xml
   def create
     @gift = Gift.new(params[:gift])
+    @gift.user_id = current_user
 
     respond_to do |format|
       if @gift.save
-        format.html { redirect_to(@gift, :notice => 'Gift was successfully created.') }
+        format.html { redirect_to(user_gifts_path(current_user), :notice => 'Gift was successfully created.') }
         format.xml  { render :xml => @gift, :status => :created, :location => @gift }
       else
         format.html { render :action => "new" }
@@ -60,7 +64,7 @@ class GiftsController < ApplicationController
 
     respond_to do |format|
       if @gift.update_attributes(params[:gift])
-        format.html { redirect_to(@gift, :notice => 'Gift was successfully updated.') }
+        format.html { redirect_to(user_gifts_path(current_user), :notice => 'Gift was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -73,10 +77,12 @@ class GiftsController < ApplicationController
   # DELETE /gifts/1.xml
   def destroy
     @gift = Gift.find(params[:id])
-    @gift.destroy
+    if @gift.user_id == current_user.id
+      @gift.destroy
+    end
 
     respond_to do |format|
-      format.html { redirect_to(gifts_url) }
+      format.html { redirect_to(user_gifts_path(current_user)) }
       format.xml  { head :ok }
     end
   end

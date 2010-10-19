@@ -1,25 +1,44 @@
-<p id="notice"><%= notice %></p>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", user_gifts_path  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_user_gift_path %></li>
+      <li class="active"><%= link_to "#{t("web-app-theme.show", :default => "Show")}", user_gift_path %></li>
+    </ul>
+  </div>          
+  <div class="content">
+    <div class="inner">
+      
+        <p>
+          <b><%= t("activerecord.attributes.gift.user_id", :default => t("activerecord.labels.user_id", :default => "User")) %>:</b>
+          <%= @gift.user_id %>
+        </p>
 
-<p>
-  <b>Name:</b>
-  <%= @gift.name %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.gift.name", :default => t("activerecord.labels.name", :default => "Name")) %>:</b>
+          <%= @gift.name %>
+        </p>
 
-<p>
-  <b>Description:</b>
-  <%= @gift.description %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.gift.description", :default => t("activerecord.labels.description", :default => "Description")) %>:</b>
+          <%= @gift.description %>
+        </p>
 
-<p>
-  <b>Url:</b>
-  <%= @gift.url %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.gift.url", :default => t("activerecord.labels.url", :default => "Url")) %>:</b>
+          <%= @gift.url %>
+        </p>
 
-<p>
-  <b>Price:</b>
-  <%= @gift.price %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.gift.price", :default => t("activerecord.labels.price", :default => "Price")) %>:</b>
+          <%= @gift.price %>
+        </p>
+      <div class="wat-cf">
+        <%= link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_user_gift_path(@gift), :class => "button" %> 
+        <%= link_to image_tag("web-app-theme/icons/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}") + " " + t("web-app-theme.delete", :default => "Delete"), user_gift_path(@gift), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+      </div>      
+    </div>
+  </div>
+</div>
 
-
-<%= link_to 'Edit', edit_gift_path(@gift) %> |
-<%= link_to 'Back', gifts_path %>
+<% content_for :sidebar, render(:partial => 'sidebar') -%>
