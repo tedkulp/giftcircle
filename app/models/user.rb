@@ -5,10 +5,11 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :secret_code
   validates_presence_of :first_name, :last_name
+  validates :secret_code, :presence => true, :format => { :with => /^letmeinplease$/ }
   
-  has_many :user_circles, :class_name => "UserCircle", :foreign_key => "user_id"
+  has_many :user_circles, :class_name => "UserCircle", :foreign_key => "user_id", :dependent => :destroy
   has_many :circles, :through => :user_circles
   
   has_many :gifts, :dependent => :destroy
