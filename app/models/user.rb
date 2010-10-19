@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
+  has_many :user_circles, :class_name => "UserCircle", :foreign_key => "circle_id"
+  has_many :circles, :through => :user_circles
+  
   has_many :gifts, :dependent => :destroy
   accepts_nested_attributes_for :gifts, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
   

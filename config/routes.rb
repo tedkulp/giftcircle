@@ -1,5 +1,7 @@
 Giftcircle::Application.routes.draw do
 
+  resources :circles
+
   devise_for :users
 
   resources :users do

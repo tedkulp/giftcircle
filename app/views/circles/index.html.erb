@@ -1,0 +1,49 @@
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", circles_path  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_circle_path %></li>
+    </ul>
+  </div>          
+  <div class="content">          
+    <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Circles</h2>
+    <div class="inner">
+      <table class="table">
+        <tr>             
+          <th class="first"></th>
+          <th>
+            <%= t("activerecord.attributes.circle.name", :default => t("activerecord.labels.name", :default => "Name")) %>
+          </th>
+          <th><%= t("web-app-theme.admin_user", :default => "Group Admin")  %></th>
+          <th class="last">&nbsp;</th>
+        </tr>
+        <% @circles.each do |circle| -%>
+        <tr class="<%= cycle("odd", "even") %>">
+          <td>&nbsp;</td>
+          <td>
+            <%= current_user.id == circle.admin_user_id ? link_to(circle.name, circle_path(circle)) : circle.name %>
+          </td>
+          <td>
+            <%= circle.admin_user.email %>
+          </td>
+          <td class="last">
+            <%= link_to "#{t("web-app-theme.show", :default => "Show")}", circle_path(circle) %><% if current_user.id == circle.admin_user_id -%> |
+            <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_circle_path(circle) %> |
+            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", circle_path(circle), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you really, really, really, really sure you want to do that?")}" %>
+            <% end %>
+          </td>
+        </tr>          
+        <% end -%>
+      </table>
+      <div class="actions-bar wat-cf">
+        <div class="actions">
+        </div>
+        
+        <%= will_paginate @circles  %>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

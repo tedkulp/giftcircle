@@ -10,7 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101019092741) do
+ActiveRecord::Schema.define(:version => 20101019110230) do
+
+  create_table "circles", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "admin_user_id"
+    t.integer  "created_by"
+  end
 
   create_table "gifts", :force => true do |t|
     t.integer  "user_id"
@@ -18,6 +27,13 @@ ActiveRecord::Schema.define(:version => 20101019092741) do
     t.text     "description"
     t.string   "url"
     t.decimal  "price",       :precision => 10, :scale => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_circles", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "circle_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
