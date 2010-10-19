@@ -1,4 +1,16 @@
 
+  <% if @gift.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gift.errors.count, "error") %> prohibited this feed from being saved:</h2>
+
+      <ul class="list">
+      <% @gift.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="group">
     <%= f.label :name, t("activerecord.attributes.gift.name", :default => "Name"), :class => :label %>
     <%= f.text_field :name, :class => 'text_field' %>

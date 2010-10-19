@@ -8,17 +8,19 @@
     </ul>
   </div>          
   <div class="content">          
-    <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Gifts</h2>
+    <h2 class="title"><%= t("web-app-theme.all", :default => @user.full_name + "'s")  %> Gifts</h2>
     <div class="inner">
       <table class="table">
         <tr>             
           <th class="first">ID</th>
           <th><%= t("activerecord.attributes.gift.name", :default => t("activerecord.labels.name", :default => "Name")) %></th>
           <th><%= t("web-app-theme.url", :default => "URL")  %></th>
+          <th><%= t("web-app-theme.price", :default => "Price")  %></th>
           <th class="last">&nbsp;</th>
         </tr>
         <% @gifts.each do |gift| -%>
-        <tr class="<%= cycle("odd", "even") %>">
+        <% oddeven = cycle("odd", "even") -%>
+        <tr class="<%= oddeven -%>">
           <td>
             <%= gift.id %>
           </td>
@@ -26,7 +28,10 @@
             <%= current_user.id == gift.user_id ? link_to(gift.name, edit_user_gift_path(gift.user, gift)) : gift.name %>
           </td>
           <td>
-            <%= gift.url %>
+            <%= !gift.url.blank? ? ('<a href="' + gift.url + '" target="_blank">' + gift.url + '</a>').html_safe : '&nbsp;'.html_safe %>
+          </td>
+          <td>
+            <%= !gift.price.blank? ? number_to_currency(gift.price) : '&nbsp;'.html_safe %>
           </td>
           <td class="last">
             <%= link_to "#{t("web-app-theme.show", :default => "Show")}", user_gift_path(gift.user, gift) %><% if current_user.id == gift.user_id -%> |
@@ -35,6 +40,15 @@
             <% end -%>
           </td>
         </tr>
+        <% unless gift.description.blank? -%>
+        <tr class="<%= oddeven -%>">
+          <td>&nbsp;</td>
+          <td colspan="2">
+            <%= h gift.description.gsub(/\n/, '<br />').html_safe -%>
+          </td>
+          <td class="last">&nbsp;</td>
+        </tr>
+        <% end -%>
         <% end -%>
       </table>
       <div class="actions-bar wat-cf">

@@ -5,7 +5,7 @@ class CirclesController < ApplicationController
   # GET /circles
   # GET /circles.xml
   def index
-    @circles = Circle.paginate :page => params[:page], :order => 'created_at DESC'
+    @circles = current_user.circles
 
     respond_to do |format|
       format.html # index.html.erb

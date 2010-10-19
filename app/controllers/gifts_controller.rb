@@ -6,7 +6,8 @@ class GiftsController < ApplicationController
   # GET /gifts.xml
   def index
     @user_id = params[:user_id]
-    @gifts = Gift.paginate :conditions => {:user_id => params[:user_id]}, :page => params[:page], :order => 'created_at DESC'
+    @user = User.find_by_id(params[:user_id])
+    @gifts = Gift.paginate :conditions => {:user_id => params[:user_id]}, :page => params[:page], :order => 'created_at ASC'
 
     respond_to do |format|
       format.html # index.html.erb
