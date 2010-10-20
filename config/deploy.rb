@@ -1,4 +1,5 @@
 require 'bundler/capistrano'
+require 'hoptoad_notifier/capistrano'
 
 set :application, "giftcircle"
 set :repository,  "git@projects.shiftrefresh.net:giftcircle.git"
@@ -26,5 +27,4 @@ namespace :deploy do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end
-        require 'config/boot'
-        require 'hoptoad_notifier/capistrano'
+
