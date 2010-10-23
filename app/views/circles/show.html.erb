@@ -33,4 +33,21 @@
   </div>
 </div>
 
+<% if current_user.id == @circle.admin_user_id -%>
+<% content_for :sidebar do -%>
+<div class="block notice">
+  <h3>Circle User Admin</h3>
+  <div class="content">
+    <p>
+      <ul class="list">
+        <% @circle.users.each do |user| -%>
+          <li><%= user.full_name -%><% unless user.id == @circle.admin_user_id -%> [<%= link_to 'X', remove_circle_user_path(@circle, user) -%>]<% end -%></li>
+        <% end -%>
+      </ul>
+    </p>
+  </div>
+</div>
+<% end -%>
+<% else -%>
 <% content_for :sidebar, render(:partial => 'sidebar') -%>
+<% end -%>

@@ -13,6 +13,8 @@ Giftcircle::Application.routes.draw do
 	
 	match 'gifts/:id/buy' => 'gifts#buy', :as => :buy_gift
 	match 'gifts/:id/unbuy' => 'gifts#unbuy', :as => :unbuy_gift
+	
+	match 'circles/:circle_id/remove_user/:id' => 'circles#remove_user', :as => :remove_circle_user
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

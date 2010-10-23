@@ -91,4 +91,19 @@ class CirclesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def remove_user
+    user_circle = UserCircle.find(:first, :conditions => ["circle_id = ? AND user_id = ?", params[:circle_id], params[:id]])
+    
+    respond_to do |format|
+      if user_circle and user_circle.destroy
+        format.html { redirect_to(circle_path(params[:circle_id]), :notice => 'User was successfully removed.') }
+        format.xml  { head :ok }
+      else
+        format.html { redirect_to(circle_path(params[:circle_id]), :notice => 'User was not able to be removed.') }
+        format.xml  { render :xml => @circle.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+  
 end
