@@ -41,7 +41,7 @@
     <p>
       <ul class="list">
         <% @circle.users.each do |user| -%>
-          <li><%= user.full_name -%><% unless user.id == @circle.admin_user_id -%> [<%= link_to 'X', remove_circle_user_path(@circle, user) -%>]<% end -%></li>
+          <li><%= user.full_name -%><% unless user.id == @circle.admin_user_id -%> [<%= link_to 'X', remove_circle_user_path(@circle, user), :confirm => "Are you sure you want to remove this user?" -%>]<% end -%></li>
         <% end -%>
       </ul>
     </p>
