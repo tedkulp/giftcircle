@@ -46,7 +46,7 @@ class GiftsController < ApplicationController
   # POST /gifts.xml
   def create
     @gift = Gift.new(params[:gift])
-    @gift.user_id = current_user
+    @gift.user_id = current_user.id
 
     respond_to do |format|
       if @gift.save

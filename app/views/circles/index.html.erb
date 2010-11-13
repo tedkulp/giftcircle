@@ -21,7 +21,7 @@
         <tr class="<%= cycle("odd", "even") %>">
           <td>&nbsp;</td>
           <td>
-            <%= current_user.id == circle.admin_user_id ? link_to(circle.name, circle_path(circle)) : circle.name %>
+            <%= link_to(circle.name, circle_path(circle)) %>
           </td>
           <td>
             <%= circle.admin_user.full_name %>
@@ -32,7 +32,7 @@
             <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", circle_path(circle), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you really, really, really, really sure you want to do that?")}" %>
             <% end %>
           </td>
-        </tr>          
+        </tr>
         <% end -%>
       </table>
       <div class="actions-bar wat-cf">
