@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101019192217) do
+ActiveRecord::Schema.define(:version => 20101126165924) do
 
   create_table "circles", :force => true do |t|
     t.string   "name"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20101019192217) do
     t.string   "name"
     t.text     "description"
     t.string   "url"
-    t.decimal  "price",        :precision => 10, :scale => 0
+    t.decimal  "price",        :precision => 8, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "bought_by_id"
