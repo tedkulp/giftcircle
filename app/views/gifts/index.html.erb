@@ -29,7 +29,7 @@
             <%= current_user.id == gift.user_id ? link_to(gift.name, edit_user_gift_path(gift.user, gift)) : gift.name %>
           </td>
           <td>
-            <%= !gift.url.blank? ? ('<a href="' + gift.url + '" target="_blank">' + gift.url + '</a>').html_safe : '&nbsp;'.html_safe %>
+            <%= !gift.url.blank? ? ('<a href="' + gift.url + '" target="_blank">' + gift.url.three_dot_chop + '</a>').html_safe : '&nbsp;'.html_safe %>
           </td>
           <td>
             <%= !gift.price.blank? ? number_to_currency(gift.price) : '&nbsp;'.html_safe %>
