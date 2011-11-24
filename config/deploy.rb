@@ -1,5 +1,12 @@
+# Add RVM's lib directory to the load path.
+$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
+
 require 'bundler/capistrano'
+require 'rvm/capistrano'
 require 'hoptoad_notifier/capistrano'
+
+#set :rvm_ruby_string, 'ree'
+#set :rvm_type, :user  # Don't use system-wide RVM
 
 set :application, "giftcircle"
 set :repository,  "git@github.com:tedkulp/giftcircle.git"
@@ -26,7 +33,8 @@ namespace :deploy do
   task :start do ; end
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+    #run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+    run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end
 
