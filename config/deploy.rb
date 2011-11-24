@@ -1,9 +1,10 @@
 # Add RVM's lib directory to the load path.
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
+require './config/boot'
 
 require 'bundler/capistrano'
 require 'rvm/capistrano'
-require 'hoptoad_notifier/capistrano'
+require 'airbrake/capistrano'
 
 #set :rvm_ruby_string, 'ree'
 #set :rvm_type, :user  # Don't use system-wide RVM
@@ -37,4 +38,3 @@ namespace :deploy do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end
-
