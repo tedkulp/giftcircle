@@ -2,14 +2,16 @@ require 'bundler/capistrano'
 require 'hoptoad_notifier/capistrano'
 
 set :application, "giftcircle"
-set :repository,  "git@projects.shiftrefresh.net:giftcircle.git"
+set :repository,  "git@github.com:tedkulp/giftcircle.git"
 
 set :deploy_to, "/var/www/gift-circle.com/www"
 
 set :scm, :git
 
 set :user, "rails"
-set :ssh_options, { :forward_agent => true }
+
+default_run_options[:pty] = true
+ssh_options[:forward_agent] = true
 
 role :web, "shiftrefresh.net"                         # Your HTTP server, Apache/etc
 role :app, "shiftrefresh.net"                         # This may be the same as your `Web` server
