@@ -47,6 +47,9 @@ Giftcircle::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  # Mailer hostname
+  # Mailer settings
   config.action_mailer.default_url_options = { :host => 'gift-circle.com' }
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
 end
